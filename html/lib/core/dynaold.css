@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'Dynamic-Icons-Open-Freight-App';
-  src:  url('fonts/Dynamic-Icons-Open-Freight-App.eot?lah2iw');
-  src:  url('fonts/Dynamic-Icons-Open-Freight-App.eot?lah2iw#iefix') format('embedded-opentype'),
-    url('fonts/Dynamic-Icons-Open-Freight-App.ttf?lah2iw') format('truetype'),
-    url('fonts/Dynamic-Icons-Open-Freight-App.woff?lah2iw') format('woff'),
-    url('fonts/Dynamic-Icons-Open-Freight-App.svg?lah2iw#Dynamic-Icons-Open-Freight-App') format('svg');
+  src:  url('fonts/Dynamic-Icons-Open-Freight-App.eot?pfrh3x');
+  src:  url('fonts/Dynamic-Icons-Open-Freight-App.eot?pfrh3x#iefix') format('embedded-opentype'),
+    url('fonts/Dynamic-Icons-Open-Freight-App.ttf?pfrh3x') format('truetype'),
+    url('fonts/Dynamic-Icons-Open-Freight-App.woff?pfrh3x') format('woff'),
+    url('fonts/Dynamic-Icons-Open-Freight-App.svg?pfrh3x#Dynamic-Icons-Open-Freight-App') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,8 +24,49 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.dynico-poe:before {
+.dynico-poe_inverted_v2 .path1:before {
   content: "\e900";
+  color: rgb(255, 255, 255);
+}
+.dynico-poe_inverted_v2 .path2:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.dynico-poe_inverted_v2 .path3:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.dynico-poe_inverted_v2 .path4:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.dynico-poe_inverted_v2 .path5:before {
+  content: "\e905";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.dynico-poe_inverted_v2 .path6:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.dynico-poe_inverted_v2 .path7:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.dynico-poe_inverted_v2 .path8:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.dynico-poe_inverted_v2 .path9:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
 }
 .dynico-group:before {
   content: "\f0c0";
