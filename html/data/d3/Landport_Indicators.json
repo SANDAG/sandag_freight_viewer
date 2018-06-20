@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID_1": 3, "Proj_ID": 4020003, "Active": "1", "Facility_N": "San Ysidro" }, "geometry": { "type": "Point", "coordinates": [ -117.02946811696066, 32.543163181356796 ] } },
+{ "type": "Feature", "properties": { "OBJECTID_1": 8, "Proj_ID": 4070002, "Active": "1", "Facility_N": "Tecate" }, "geometry": { "type": "Point", "coordinates": [ -116.90619723874613, 32.552930968760592 ] } },
+{ "type": "Feature", "properties": { "OBJECTID_1": 12, "Proj_ID": 0, "Active": "1", "Facility_N": "Otay Mesa" }, "geometry": { "type": "Point", "coordinates": [ -116.97470374511475, 32.548122597214096 ] } }
+]
+}

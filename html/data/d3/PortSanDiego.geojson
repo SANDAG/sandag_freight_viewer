@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 1, "Name": "Tenth Ave Marine Terminal", "Lat": 32.699092, "Long": -117.156072 }, "geometry": { "type": "Point", "coordinates": [ -117.15607154699995, 32.69909162600004 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 2, "Name": "National City Marine Terminal", "Lat": 32.654373, "Long": -117.119415 }, "geometry": { "type": "Point", "coordinates": [ -117.11941493199998, 32.654372979000073 ] } }
+]
+}

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="description" content="">
+        <meta name="author" content="Michael Ruane, Delaware Valley Regional Planning Commission, Office of Freight and Aviation Planning">
+        <!--<title>PhillyFreightFinder 3.1.3  |  DVRPC</title>-->
+        <title>SANDAG Freight Viewer 1.1.0  </title>
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800' rel='stylesheet' type='text/css'>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" rel="stylesheet" type="text/css">
+        <link href="./lib/core/dyna.css" rel="stylesheet" type="text/css">
+        <!--<link href="http://dvrpcfreight.github.io/dynamic-icons/dyna.css" rel="stylesheet" type="text/css">-->
+
+        <!-- locals for development
+        <link href="dev/locals/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="dev/locals/leaflet.css" rel="stylesheet" type="text/css">
+        -->
+
+        <link href='lib/style.min.css' rel='stylesheet' type="text/css"/>
+
+        <style>
+        #loading {
+                position: absolute;
+                width: 220px;
+                height: 19px;
+                top: 50%;
+                left: 50%;
+                margin: -10px 0 0 -110px;
+                z-index: 1028;
+            }
+        .omodal{
+            position: absolute;
+            width: 220px;
+            height: 19px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -110px;
+            z-index: 1028;
+            display: none;
+            overflow: hidden;
+            outline: 0px none;
+        }
+        .navbar-form .form-control{
+            width:100%!important;
+        }
+
+        @media screen and (min-width: 768px) {
+                .modal-dialog {
+                    width:730px!important;
+                }
+            }
+            @media (max-width: 1270px) {
+                .navbar .navbar-brand {
+                    font-size: 18px;
+                    float: left;
+                }
+                .leaflet-control-attribution {
+                    display: none;
+                }
+
+            }
+            @media (max-width: 1100px) {
+                .dvrpc-pff {
+                    width: 260px;
+                    overflow: hidden;
+                    margin-bottom:-20px;
+                }
+
+            }
+            @media (max-width: 992px){
+                .dl{
+                    margin-top:0px!important;
+                    margin-bottom:10px;
+                }
+                .right{float:left;}
+            }
+            @media (max-width: 885px){
+                .dvrpc-logo{display:none;}
+            }
+            @media (max-width: 768px){
+                .logo-container{
+                    padding:0px;
+                }
+                .navbar-nav .open .dropdown-menu{
+                    background-color:#fff;
+                }
+                #infobox_ {
+                    right:10px;
+                }
+                .page-title h1 {
+                    font-size: 18px;
+                }
+            }
+
+            @media (max-width: 376px){
+
+                .infowrap{
+                    padding:20px;
+                    height:auto;
+                }
+                #infobox_ {
+                    display:none;
+                }
+            }
+            /* Print Handling */
+            
+        
+        </style> 
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <header class="navbar navbar-inverse navbar-fixed-top pffheader">
+            <!-- Header logos and mobile menu button -->
+            <div class="col-md-1 brand-leader hidden-xs hidden-sm hidden-md"></div>
+            <div class="col-sm-12 col-md-12 col-lg-10 brand-left-offset" >
+                <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    <div class="navbar-brand ">
+                        <a href="http://www.sandag.org/?subclassid=96&fuseaction=home.subclasshome" title="SANDAG Freight Systems" target="_blank" class="sandag-logo"><img src='lib/images/header_sandag.png' alt="SANDAG logo"/></a>
+                        <!--<a href="#home" class="dvrpc-pff" title="PFF homepage"><img src='lib/images/header_pff.png' height='50' alt="PFF logo"/></a>-->
+                    </div>
+                </div>
+            
+                <!-- Navigation links .navbar-collapse-->
+                <div id="navbar-links" class="navbar-collapse collapse">
+                    <!--<form id='nav_search' class="navbar-form navbar-right " >
+                            <div class="input-group search-container mapUI" style="display:none;">
+                                <input id="searchbox" type="text" class="form-control" placeholder="Search by facility/place name">
+                                <span class="input-group-addon"><i class="dynico dynico-search"></i></span>
+                            </div>
+                    </form>-->
+                    <!-- Menu Items -->
+                    <ul id='landing' class="nav navbar-nav">
+                        <li><a href="#home" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="dynico dynico-home"></i>&nbsp;&nbsp;Home</a></li>
+                        <li class="dropdown">
+                            <a id="AboutDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="dynico dynico-dvrpc"></i>&nbsp;&nbsp;About <b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#planning" class='landingLink' data-toggle="collapse" data-target=".navbar-collapse.in">Freight Planning</a></li>
+                                    <li><a href="#data" class='landingLink' data-toggle="collapse" data-target=".navbar-collapse.in">Our Data</a></li>
+                                    <li><a href="#open-freight-app" class='landingLink' data-toggle="collapse" data-target=".navbar-collapse.in">Open Freight App</a></li>
+                                </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="ToolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="dynico dynico-compass"></i>&nbsp;&nbsp;Tools <b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#region" data-toggle="collapse" data-target=".navbar-collapse.in">County Profile Tool</a></li>
+                                    <li><a href="#highway-performance" class='landingLink' data-tab='highway-performance' data-toggle="collapse" data-target=".navbar-collapse.in">Highway Performance</a></li>
+                                    <!--<li><a href="#airport-indicators" class='landingLink' data-tab='airport-indicators' data-toggle="collapse" data-target=".navbar-collapse.in">Airport Indicators</a></li>-->
+                                    <li><a href="#land-indicators" class='landingLink' data-tab='land-indicators' data-toggle="collapse" data-target=".navbar-collapse.in">Land Port Indicators</a></li>
+                                    <li><a href="#maritime-indicators" class='landingLink' data-tab='maritime-indicators' data-toggle="collapse" data-target=".navbar-collapse.in">Maritime Indicators</a></li>
+                                </ul>
+                        </li>
+                        <li id='maplink' class='landingUI'><a href="#map" data-tab='map' data-toggle="collapse" data-target=".navbar-collapse.in"><i class="dynico dynico-map"></i>&nbsp;&nbsp;View Map</a></li>
+                        <li class='mapUI' style="display:none;"><a href="#map?search" data-toggle="collapse" data-target=".navbar-collapse.in" ><i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;Search</a></li>
+                    </ul>
+                </div><!--/.navbar-collapse -->
+            </div>
+        </header>
+    <!-- Search panel for map -->    
+        <div id="search-panel" class="col-lg-offset-1 col-xs-12 col-lg-10 " style="display:none;">
+            <div id="search-subpanel">
+                <form id='nav_search' class="navbar-form navbar-right " >
+                    <div class="input-group search-container mapUI" style="display:none;">
+                        <input id="searchbox" type="text" class="form-control" placeholder="Search by facility/place name">
+                        <span class="input-group-addon"><i class="dynico dynico-search"></i></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <!-- Core pages (non-map) -->
+        <section id='pFFlanding' class='landing fade in landtab-content landingUI'>
+            <!--home tab-->
+                <section id ='home' class='tab-pane active in landing-content'>
+                    <div class='homepage-title center-block col-lg-12'>
+                        <img class="hidden-xs hidden-sm homepage-data-overlay" src="lib/images/home_page_overlay.png">
+                        <div class='center-block col-lg-10 col-md-12' style='float:none;'>
+                            <h1>Freight Data Portal for the San Diego Region</h1>
+                            <div class="col-sm-10 col-md-8 hp-block-text">
+                                <p>San Diego County is a premier freight transportation gateway. It hosts California’s largest land Port of Entry for cargo in Otay Mesa; a significant port complex that is designated as a “militarily strategic” port; freight rail freight from the BNSF Class I railroad and a short line railroad connecting the downtown rail yard to the Mexican border; an airport with international cargo services; and all of these freight gateways are served by an excellent Interstate and State highway and connector network.<br/><br/><b>The performance of this extraordinary network helps promote and support a thriving economy. <i>SANDAG Freight Viewer</i> is a resource for exploring and tracking the characteristics of this regional freight network.</b></p>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class="col-sm-offset-2 col-md-4 col-sm-6 col-xs-12 hp-action-button">Get started below</div>
+                        </div>
+                    </div>
+                    <div class='center-block col-lg-10 col-md-12' style='float:none;'>
+                        <div class='col-sm-6 col-md-4'>
+                            <div class="hp-tool-links">
+                                <a href="#region" data-toggle="tab" ><h2>County Freight Profiles</h2></a>
+                                <p>The San Diego region is comprised of 18 cities and the Unincorporated area, each with a unique freight profile of facilities, employment, and trade patterns. The County Profile Tool provides insights on these unique aspects.</p>
+                                <a href="#region" data-toggle="tab" ><button class="hp-tool-btn">Explore a county</button></a>
+                            </div>
+                        </div>
+                        <div class='col-sm-6 col-md-4'>
+                            <div class="hp-tool-links">
+                                <h2>Performance Indicators</h2>
+                                <p class="hp-half">A key to understanding freight in San Diego County is evaluating the performance of the facilities that support freight in the region.</p>
+                                <a href="#highway-performance" data-toggle="tab" ><button class="hp-tool-btn hp-btn-upper">View Highway Performance</button></a>
+                                <!--<a href="#airport-indicators" data-toggle="tab" ><button class="hp-tool-btn hp-btn-upper">View Airport Indicators</button></a>-->
+                                <a href="#land-indicators" data-toggle="tab" ><button class="hp-tool-btn hp-btn-upper">View Land Port Indicators</button></a>
+                                <a href="#maritime-indicators" data-toggle="tab" ><button class="hp-tool-btn">View Maritime Indicators</button></a>
+                            </div>
+                        </div>
+                        <div class='col-sm-6 col-md-4'>
+                            <div class="hp-tool-links">
+                                <a href="#map" data-toggle="tab" ><h2>Explore Our Network</h2></a>
+                                <p>The region's extensive network includes numerous facilities that function together to drive our diverse the economy. Our map tool allows you to explore key details and facts about each of these facilities.</p>
+                                <a href="#map" data-toggle="tab" ><button class="hp-tool-btn">Browse the network map</button></a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='clearfix'></div>
+                </section>
+            
+                <!--planning tab-->
+                <section id ='planning' class='tab-pane landing-content'>
+                    <div class='page-title center-block col-lg-12'>
+                        <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                            <h1>Freight Planning at DVRPC</h1>
+                        </div> 
+                    </div>
+                        <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                             <div class='col-md-7 col-lg-7'>
+                                <p><i>SANDAG Freight Viewer </i> is the product of SANDAG’s continuing, comprehensive freight planning program. This program enables public stakeholders as well as carriers and shippers to participate in the metropolitan planning process and identifies freight transportation assets and trends for the San Diego Region.</p>
+                                 <p><i>SANDAG Freight Viewer </i> represents a true public-private partnership made possible by the members and friends of SANDAG’s Freight Stakeholder Working Group (FSWG). The FSWG has provided active input and guidance in designing and preparing the <i>Freight Viewer</i>.</p>
+                                <p>To learn more about the SANDAG’s freight planning activities and freight advisory committee, please visit the <a href="http://www.dvrpc.org/Freight/">freight page of the SANDAG website</a>.</p>
+                                <p><i>SANDAG Freight Viewer  </i>represents a highly collaborative undertaking made possible by the members and friends of the FSWG and is modeled on the nationally recognized Delaware Valley Regional Planning Commission’s <i>PhillyFreightFinder</i>.</p>
+                                
+                            </div> 
+                            <div class='col-md-5 col-lg-5'>
+                                <!--<div id=' '>
+                                    <div><img src="/lib/images/dvrpc_logoOfficial.png" title="DVRPC"></div>
+                                </div>-->
+                                <div>
+                                    <h4>DVRPC Freight Planning Staff Mission Statement</h4>
+                                    <p>The SANDAG Freight Planning staff is dedicated to creating and sustaining a dynamic and service-oriented freight planning program that regularly engages with public and private freight leaders.</p>
+                                    <h4>Contact our Staff</h4>
+                                        <b>Christina Casgar</b><br/>
+                                        <em>Goods Movement Policy Manager</em><br/>
+                                        <p>Phone: 619.699.1982  |  Email: <a href="mailto:christina.casgar@sandag.org" data-toggle="tooltip" title="Email Ted">christina.casgar@sandag.org</a></p>
+                                        <b>Pat Landrum</b><br/>
+                                        <em>Data Solutions Manager</em><br/>
+                                        <p>Phone: 619.595.5602  |  Email: <a href="mailto:Pat.Landrum@sandag.org" data-toggle="tooltip" title="Email Michael">pat.landrum@sandag.org</a></p>
+                                </div>
+                            </div>
+                        </div>
+                     <div class='clearfix'></div>
+                    <div class='col-md-12 hpbanner'>
+                        <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                        <h4>Current Freight Studies and Projects</h4>
+                            <div class='col-md-6 col-lg-6'>
+                                <ul class="recentProjs">
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=436&fuseaction=projects.detail" target="_blank"><b>Analysis of Freeway Operational Strategies Related to the Use of Managed Lanes by Trucks</b></a><br/><span class="projSub">Analyzes different strategies for accommodating and managing trucks on the region’s freeways.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=56&fuseaction=projects.detail" target="_blank"><b>State Route 11 and Otay Mesa East Port of Entry</b></a><br/><span class="projSub">This innovative project will improve the efficient movement of people, goods, and services between the United States and Mexico.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=437&fuseaction=projects.detail" target="_blank"><b>Freight Gateway Study Update</b></a><br/><span class="projSub">Provides a forecast of regional freight traffic in San Diego and Imperial Counties through 2050.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=438&fuseaction=projects.detail" target="_blank"><b>Port of San Diego Freeway Access Improvements</b></a><br/><span class="projSub">Includes improvements at Bay Marina Drive at I-5, Civic Center Drive at Harbor Drive and I-5, and 10th Avenue at Harbor Drive.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=439&fuseaction=projects.detail" target="_blank"><b>LOSSAN Freight Rail Corridor</b></a><br/><span class="projSub">Improvements include double tracking, curve realignments, and the addition of crossovers to increase capacity and enhance reliability.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=60&fuseaction=projects.detail" target="_blank"><b>State Route 905</b></a><br/><span class="projSub">The completion of SR 905 will provide a critical connection to the Otay Mesa Port of Entry.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><b>State Route 11 and Otay Mesa Port of Entry </b><br/><span class="projSub">Considers the importance of freight and goods movement to the region’s economic prosperity and seeks to balance regional and national freight priorities.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                            <div class='col-md-6 col-lg-6'>
+                                <ul class="recentProjs" >
+                                <h4>Past Freight Studies and Projects</h4>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=440&fuseaction=projects.detail" target="_blank"><b>South Line Rail Freight Capacity Project</b></a><br/><span class="projSub">Provided expanded freight operations through the construction of improved San Ysidro Yard capacity, trackage, and train control safety improvements.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=441&fuseaction=projects.detail" target="_blank"><b>San Diego and Imperial County Freight Gateway Study</b></a><br/><span class="projSub">In March 2010 SANDAG published the Comprehensive Freight Gateway Study. The Gateway Study provides a forecast of regional freight traffic in San Diego and Imperial Counties through 2050.</span><br/><span class="dateSub">Date Published: August 2013</span></li>
+                                    <li><a href="http://www.sandag.org/index.asp?classid=13&subclassid=96&projectid=443&fuseaction=projects.detail" target="_blank"><b>2050 Goods Movement Strategy</b></a><br/><span class="projSub">The 2050 Goods Movement Strategy (GMS) serves as the freight component of the 2050 Regional Transportation Plan. The GMS considers the growing importance of freight and goods movement to the region’s economic prosperity, and it seeks to balance regional and national freight priorities.<br/></span><span class="dateSub">Date Published: August 2013</span></li>
+                                    <h4>Related Resources</h4>
+                                    <li><a href="http://www.sandag.org/index.asp?committeeid=105&fuseaction=committees.detail" target="_blank"><b>Committees</b></a><br/></li>
+                                    <li><a href="http://www.sandag.org/uploads/publicationid/publicationid_1466_10512.pdf" target="_blank"><b>Publications</b></a><br/></li>
+                                </ul>
+                            </div>
+                        </div>
+                </section>
+                <!--domestic trade tab-->
+                <section id ='region' class='tab-pane landing-content load_data'>
+                </section>
+
+                <!--domestic trade tab-->
+                <section id ='domestic-trade' class='tab-pane landing-content load_data'>
+                </section>
+
+                <!--airport indicators tab-->
+                <section id ='airport-indicators' class='tab-pane landing-content load_data'>
+                </section>
+
+                <!--land indicators tab-->
+                <section id ='land-indicators' class='tab-pane landing-content load_data'>
+                </section>
+
+                <!--maritime indicators tab-->
+                <section id ='maritime-indicators' class='tab-pane landing-content load_data'>    
+                </section>
+
+                <!--highway performance tab-->
+                <section id ='highway-performance' class='tab-pane landing-content load_data'>    
+                </section>
+                
+                <!--data tab-->
+                <section id ='data' class='tab-pane landing-content load_data'>
+                </section>  
+                
+                <!-- licenses -->
+                <section id ='license' class='tab-pane landing-content'>
+                    <div class='page-title center-block col-lg-12'>
+                        <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                            <h1>Application Licenses</h1>
+                        </div>
+                    </div>
+                    <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                        <div class="col-xs-12">
+                            <b>PhillyFreightFinder's code is licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a></b>
+                            <p>Copyright (c) 2014 Delaware Valley Regional Planning Commission</p>
+                            <p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+                            this software and associated documentation files (the "Software"), to deal in
+                            the Software without restriction, including without limitation the rights to
+                            use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+                            the Software, and to permit persons to whom the Software is furnished to do so,
+                            subject to the following conditions:</p>
+                            <p><b>The above copyright notice and this permission notice shall be included in all
+                            copies or substantial portions of the Software.</b></p>
+                            <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR                    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+                            FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+                            COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+                            IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+                            CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                            <br>
+                            <h4>Additional Licenses</h4>
+                            <p>PhillyFreightFinder includes elements of other software, their licenses are as follows:</p
+                            >
+                            <h5>Awesome Markers</h5>
+                            <p>Awesome Markers and its components are licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>. &copy;&nbsp;2013 L. Voogdt</p>
+                        </div>
+                    </div>
+                    <div class='clearfix'></div>
+                </section>
+
+                <!-- data disclaimer -->
+                <section id ='disclaimer' class='tab-pane landing-content'>
+                    <div class='page-title center-block col-lg-12'>
+                        <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                            <h1>Data Disclaimer</h1>
+                        </div>
+                    </div>
+                    <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                        <div class="col-xs-12 col-sm-6">
+                            <p>The Delaware Valley Regional Planning Commission (DVRPC) excludes any and all implied warranties of merchantability and fitness for any digital file obtained from the Commission. No guarantees are expressed or implied as to the use or application of the digital information supplied. DVRPC assumes no responsibility to maintain them in any manner or form.</p>
+                            <p>DVRPC will not be liable for and the user agrees to hold DVRPC harmless from and against any direct, indirect, special, incidental, or consequential damages arising out of the use or inability to use the material supplied, or arising out of any inaccuracy or defect in the digital information supplied.</p>
+                            <p>Recipients of DVRPC digital files are not entitled to any file revisions, updates, corrections or new releases.</p>
+                            <p>Recipients of DVRPC digital files are encouraged to credit DVRPC as the source of the data when producing maps, graphics, or other documents that utilize DVRPC files.</p>
+                            
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="well well-sm">
+                                <h4>PhillyFreightFinder</h4>
+                                <p>The contents and information contained in this application will be updated on a regular basis as new information is available. However, at any one point in time, some data may not reflect the most current conditions. At the present time, this mapping tool only contains infrastructure and facilities within the official DVRPC region.</p>
+                                <p>The format and information on this map may be updated or changed at any time. This map does not expand the liability of DVRPC, state, local, and other agencies beyond existing law.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='clearfix'></div>
+                </section>
+
+                <!-- open freight app -->
+                <section id ='open-freight-app' class='tab-pane landing-content'>
+                    <div class='page-title center-block col-lg-12'>
+                        <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                            <h1>Open Freight App</h1>
+                        </div>
+                    </div>
+                    <div class='center-block col-lg-10 col-sm-12' style='float:none;'>
+                        <div class='col-md-7 content'>
+                                <p>Open Freight App is a project by the Delaware Valley Regional Planning Commission (DVRPC) to share with regional and national transportation planning partners the framework that is the basis for the <a href="http://www.dvrpc.org/webmaps/phillyfreightfinder/" target="_blank">PhillyFreightFinder</a> web mapping and data application. Through this effort, DVRPC hopes that county planning agencies, metropolitan planning organizations and state departments of transportation, and economic development agencies can leverage this framework to further their efforts in making freight transportation data public. By utilizing the Open Freight App framework, rather than building from scratch, planning agencies can focus their time and resources on the development of data sets that can serve to improve the access to information on freight facilities and their role in economic development and transportation across the country. Open Freight App would serve as a self-hosted solution to offer these datasets to other planners, economic developers, public officials, decision-makers and the general public.</p>
+                            <h4>Details</h4>
+                                <p>Open Freight App, is a white-label, open source version of the DVRPC <a href="http://www.dvrpc.org/webmaps/phillyfreightfinder/" target="_blank">PhillyFreightFinder</a> application. This version is available for download and open for replication by any user. This version will have no branding or color styling applied and a standardized icon set will be provided for a sample set of data. In addition, the project will include the following:</p>
+                                <ul>
+                                    <li>Full documentation and guide on:
+                                        <ul>
+                                            <li>Adding map functionality for layers and features</li>
+                                            <li>Creating info windows for feature data</li>
+                                            <li>Creating and modifying legend and layer controls</li>
+                                            <li>Populating search criteria</li>
+                                            <li>Converting ArcGIS Shapefiles to lightweight GeoJSONs for use in the map</li>
+                                            <li>and more!</li>
+                                        </ul>
+                                    <li>Fully commented versions of all necessary HTML, JavaScript and CSS files</li>
+                                    <li>A starter set of freight facility icons</li>
+                                    <li>License and credit materials</li>
+                                </ul>
+                                <p><em>Advanced coding support is not included with this product. While staff at DVRPC can field general questions and assist with certain aspects of the project, formal support in the form of coding, styling, graphic design and advanced development must be done by an outside consultant. If you require more advanced support <a href="mailto:mruane@dvrpc.org">please contact us for more information</a>.</em></p>
+
+                        </div> 
+                        <div class='col-md-5'>
+                            <a href="https://github.com/elwendt/sandag-freight-viewer-app/" target="_blank"><button type="button" class="btn btn-primary btn-lg" ><i class="dynico dynico-github"></i>&nbsp;&nbsp;View Project on GitHub</button></a><br/><br/>
+                        </div>
+                    </div>
+                    <div class='clearfix'></div>
+                </section>
+        </section>
+        <footer class="content-footer col-xs-12 landingUI" style="display:none;">
+            <div class="center-block col-lg-10 col-md-12" style="float:none;">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="/"><img class="footer-logo" src="lib/images/header_sandag.png" alt="DVRPC"></a>
+                    <p>401 B Street, Suite 800<br>San Diego, CA 92101-1520<br>619.699.1900<br>Contact:&nbsp;&nbsp;<a id="contact-info" href="mailto:christina.casgar@sandag.org">Christina Casgar</a><br>Contact:&nbsp;&nbsp;<a id="contact-info" href="mailto:pat.landrum@sandag.org">Pat Landrum</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <h4>About</h4>
+                            <ul class="footer-links">
+                                <li><a href="#planning">SANDAG Freight Planning</a></li>
+                                <li><a href="#data">Our Data</a></li>
+                                <li><a href="#open-freight-app">Open Freight App</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <h4>Tools</h4>
+                            <ul class="footer-links">
+                                <li><a href="#region">County Profiles</a></li>
+                                <li><a href="#highway-performance">Highway Performance</a></li>
+                                <!--<li><a href="#airport-indicators">Airport Indicators</a></li>-->
+                                <li><a href="#land-indicators">Land Port Indicators</a></li>
+                                <li><a href="#maritime-indicators">Maritime Indicators</a></li>
+                                <li><a href="#map">Network Explorer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="row">
+                        <div class="hidden-xs col-sm-6 col-md-12">
+                            
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <p style="padding-top:58px;"><a href="#disclaimer">Data Disclaimer</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#license">License</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.sandag.org/index.asp?classid=28&fuseaction=home.classhome" target="_blank">Policies&nbsp;&nbsp;<i class="glyphicon glyphicon-new-window"></i></a></p><p>&copy;&nbsp;2018 San Diego Association of Governments</p>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        
+                        <div class="col-xs-12 col-sm-3">
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </footer> 
+        
+    <!--Map and Sidebar-->
+       <div class="row ocontent mapUI" id="container" style="display:none;">
+
+            <div class="col-sm-4 col-lg-3" id="sidebar">
+				
+                <div class="tab-content" >
+                         <!--ADD LAYER CONTROL GROUPS HERE -->
+                        <!---Layer Group 1-->
+                        <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="modals/truck.html" data-toggle="modal" data-target="#truckModal" ><div class="panelinfo legicon truckinfo dynico dynico-info" > </div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_1">
+                                        <div class="panellink truckinfo">
+                                            <span>Highways</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_1" class="panel-collapse collapse">
+                                    <div class="panel-body legPanel" style="padding: 0;">
+                                        <input type="checkbox" name="LayerCont" id="layer1" class="dyna layer" z-index="16">
+                                        <!--<input type="checkbox" name="LayerCont" id="layer2" class="dyna layer" z-index="15">-->
+                                        <input type="checkbox" name="LayerCont" id="layer3" class="dyna layer" z-index="14">
+                                        <input type="checkbox" name="LayerCont" id="layer4" class="dyna layer" z-index="13">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---Layer Group 2-->
+                       <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="modals/rail.html" data-toggle="modal" data-target="#railModal" ><div class="panelinfo legicon railinfo dynico dynico-info"> </div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Rail-layers">
+                                        <div class="panellink railinfo">
+                                            <span>Freight Rail</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Rail-layers" class="panel-collapse collapse">
+                                    <div class="panel-body legPanel" style="padding: 0;">
+                                        <input type="checkbox" name="LayerCont" id="layer6" class="dyna layer" z-index="12">
+                                        <input type="checkbox" name="LayerCont" id="layer5" class="dyna layer" z-index="11">
+                                        <input type="checkbox" name="LayerCont" id="layer7" class="dyna layer" z-index="10">
+                                        <input type="checkbox" name="LayerCont" id="layer8" class="dyna layer" z-index="9">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!---Layer Group 3-->
+                       <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                   <a href="modals/port.html" data-toggle="modal" data-target="#portModal" ><div class="panelinfo legicon portinfo dynico dynico-info"> </div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_3">
+                                        <div class="panellink portinfo">
+                                            <span>Marine and Land Ports</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_3" class="panel-collapse collapse">
+                                    <div class="panel-body legPanel" style="padding: 0;">
+                                        <input type="checkbox" name="LayerCont" id="layer9" class="dyna layer" z-index="8">
+                                        <input type="checkbox" name="LayerCont" id="layer10" class="dyna layer" z-index="7">
+                                        <!--<input type="checkbox" name="LayerCont" id="layer11" class="dyna layer" z-index="6">-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!---Layer Group 4-->
+                       <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="modals/air.html" data-toggle="modal" data-target="#airModal" ><div class="panelinfo legicon airinfo dynico dynico-info"> </div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_4">
+                                        <div class="panellink airinfo">
+                                            <span>Airports</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_4" class="panel-collapse collapse">
+                                    <div class="panel-body legPanel" style="padding: 0;">
+                                <input type="checkbox" name="LayerCont" id="layer12" class="dyna layer" z-index="5">
+                                <!--<input type="checkbox" name="LayerCont" id="layer13" class="dyna layer" z-index="4">-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---Layer Group 5-->
+                       <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="modals/fcenters.html" data-toggle="modal" data-target="#fcModal" ><div class="panelinfo legicon fcinfo dynico dynico-info"> </div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_5">
+                                        <div class="panellink fcinfo">
+                                            <span>Employment Centers</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_5" class="panel-collapse collapse">
+                                    <div class="panel-body legPanel" style="padding: 0;">
+                                <input type="checkbox" name="LayerCont" id="layer14" class="dyna layer" z-index="3">
+                                <input type="checkbox" name="LayerCont" id="layer15" class="dyna layer" z-index="2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!---Layer Group 6-->
+                       <div class="panel-group legend">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="modals/pipe.html" data-toggle="modal" data-target="#pipeModal" ><div class="panelinfo legicon energyinfo dynico dynico-info" > </div></a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_6">
+                                        <div class="panellink energyinfo">
+                                            <span>Energy &amp; Utilities</span>
+                                        </div>
+                                    </a>
+                                    <a class="checked_all togglebox"></a>
+                                </div> 
+                                <div id="Group_6" class="panel-collapse collapse">
+                                    <div class="panel-body legPanel" style="padding: 0;">
+                                <input type="checkbox" name="LayerCont" id="layer16" class="dyna layer" z-index="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       <!---Layer Group 7-->
+                       <!--<div class="panel-group legend">-->
+                            <!--<div class="panel panel-default">-->
+                                <!--<div class="panel-heading">-->
+                                    <!--<a href="modals/community.html" data-toggle="modal" data-target="#commModal" ><div class="panelinfo legicon communityinfo dynico dynico-info"> </div></a>-->
+                                    <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#Group_7">-->
+                                        <!--<div class="panellink communityinfo">-->
+                                            <!--<span>Communities</span>-->
+                                        <!--</div>-->
+                                    <!--</a>-->
+                                    <!--<a class="checked_all togglebox"></a>-->
+                                <!--</div> -->
+                                <!--<div id="Group_7" class="panel-collapse collapse">-->
+                                    <!--<div class="panel-body legPanel" style="padding: 0;">-->
+                                <!--<input type="checkbox" name="LayerCont" id="layer17" class="dyna layer" z-index="-1">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                </div>
+            </div><!--Siderbar Close-->
+            <!---Map Pane -->
+            <div class="col-sm-8 col-lg-9 mapUI" id="mapDIV" >
+                <div id="loadingtm" class="" style="display:block;"><div class="spin-item"><div class="item-inner"><div class="item-loader-container"><div class="la-ball-spin-clockwise la-2x"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div></div></div>
+            </div>
+            <input type="hidden" id="mapLoad" value="false" />
+        </div><!--end Map and Sidebar-->
+        <!--Footer container-->
+        <footer class="navbar-fixed-bottom pff_footer mapUI" style="display:none;">
+            <div style='height:34px;'>
+               <div id="MapFooter" > 
+                    <button id="toggle" type="button" class="footer_btn" data-toggle="tooltip" title="Toggle Sidebar" style="height: 34px; padding: 5px 10px; margin-right: 10px;width:36px;"><i id="toggleIcon" class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button id="contact" type="button" class="footer_btn" data-toggle="tooltip" title="Contact Us" style="height: 34px; padding: 5px 10px; margin-right: 10px;" onclick="$('#contactModal').modal('show'); return false;"><i id="contactIcon" class="dynico dynico-mail"></i>&nbsp;&nbsp;Submit Feedback</button>
+                    <div class='footernav'>                </div>
+                    <div id='infobox_' class=''>
+                        <a href='#'><span id='togbtn' class='glyphicon glyphicon-minus hide InfoTgl'></span></a><div id='iconography'></div><div id='infoheader' class='ihholder'><p>Click feature to view details</p></div>
+                        
+                            <div class='infowrap'>
+                                <div id='info'></div>
+                                <div id='featureName'></div>
+                            </div>
+                            
+                        </div> 
+                </div>        
+            </div>
+            <div class="navbar-fixed-bottom" style='height:7px;background-color:#004a12;bottom: -7px;'></div>
+        </footer> 
+        
+        
+        <!--contact modal-->
+        <div class="modal fade" id="contactModal"><form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title white">Submit Feedback</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please submit your comments, questions, etc. about PhillyFreightFinder below.  Your interest in this freight mapping and data platform for the Delaware Valley is greatly appreciated.</p>
+                        <form id="contact-form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="text" class="form-control" id="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="report">Report: </label>
+                                    <select id="report" class="form-control"><option selected value="">Select One</option>
+                                                    <option value="Comment">Comment</option>
+                                                    <option value="Question">Question</option>
+                                                    <option value="Data Correction">Data Correction</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="comment">Comment:</label>
+                                    <textarea class="form-control" rows="3" id="comment"></textarea>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </form></div><!-- /.modal -->
+         <!-- Trucking Modal Window -->
+        <div class="modal fade" id="truckModal">
+                    <div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div>
+         </div>
+        <!-- Rail Modal Window-->
+        <div class="modal fade" id="railModal">
+                    <div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div>
+         </div>
+        <!-- Port Modal Window-->
+        <div class="modal fade" id="portModal">
+                    <div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div>
+         </div>
+        <!-- Air Modal Window-->
+        <div class="modal fade" id="airModal">
+                    <div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div>
+         </div>
+        <!-- FC Modal Window-->
+        <div class="modal fade" id="fcModal">
+            <div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div>
+         </div>
+        <!-- Pipes Modal Window-->
+        <div class="modal fade" id="pipeModal">
+        	<div class="modal-dialog">  
+		     <div class="modal-content"></div>
+		     </div>
+		</div>  
+        <!-- Maritime Indicator Tool Modal Window-->
+        <div class="modal fade" id="miToolModal">
+            <div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div>
+        </div>  
+        <!-- Highway Performance Tool Modal Window-->
+        <div class="modal fade" id="hpToolModal">
+            <div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div>
+        </div>  
+        </div>
+        <!-- Community Modal Window-->
+        <div class="modal fade" id="commModal"><div class="modal-dialog">  
+             <div class="modal-content"></div>
+             </div></div>
+        <!--Mobile InfoWindow Modal-->
+        <div class="modal fade" id="mobileInfo_modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div id="mobileMdHeader" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onClick='resetHighlight()'><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div id="mobileheader"></div>
+              </div>
+              <div class='infowrap'>
+                <div id='mobileinfo'></div>
+                <div id='mobilefeatureName'></div>
+                </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal --> 
+
+
+        <!-- prep external loaded elements -->
+
+        <!-- locals for offline dev--> 
+<!--
+        <script type="text/javascript" src="dev/locals/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="dev/locals/leaflet.js"></script>
+        <script type="text/javascript" src="dev/locals/jquery.bxslider.min.js"></script>
+        <script type="text/javascript" src="dev/locals/highcharts.js"></script>
+        <script type="text/javascript" src="dev/locals/jquery.nicescroll.js"></script>
+        <script type="text/javascript" src="dev/locals/bootstrap.min.js"></script>
+ --> 
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+        
+        <script type="text/javascript">
+            // prep data tabs for loading of external resources
+            var tab_status = {};
+            $('.load_data').each(function(){
+                var data_id = this.getAttribute('id');                
+                tab_status[data_id]= false;
+            });
+        </script>
+       
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
+
+        <script src="lib/d3.build.min.js"></script>
+        <script type="text/javascript" src="lib/build.min.js"></script>
+
+
+        <script type="text/javascript">
+           //submit contact form- required fields: email, staffEmail, subject, body
+              $('#contactModal form').submit(function(e) {
+                var form = this;
+
+                $(form).find('[type=submit]').prop('disabled',true);
+                e.preventDefault();
+                var params = {
+                  email:$(form).find('#email').val(),
+                  staffEmail:'mruane@dvrpc.org',
+                  subject:'PhillyFreightFinder Feedback',
+                  body: 'Thank you for sending us your feedback. A summary of your comments are provided below and you will be contacted shortly.',
+                  Name: $(form).find('#name').val(),
+                  Report:$(form).find('#report').val(),
+                  Message:$(form).find('#comment').val()
+                };
+                $(form).find('.modal-body').prepend($('<div/>').addClass('alert alert-warning').text('We were unable to submit your feedback successfully. Please email this information to: ').hide()).prepend($('<div/>').addClass('alert alert-success').text("Thank your for your feedback! You will receive a confirmation email and someone will contact you shortly.").hide());
+                $(form).get(0).reset();
+
+                $.ajax('http://www.dvrpc.org/asp/email/send.aspx', {type: 'POST', data: params}).done(function() {
+                  $(form).find('[type=submit]').prop('disabled',false);
+
+
+
+
+
+                  $(form).find('.alert-success').slideDown();
+                }).fail(function() {
+                  var arr = [];
+                  for (var i in params) {
+                    if ($.inArray(i, ['email','staffEmail','subject','body']) == -1)
+                      arr.push(i+': '+params[i]);
+                  }
+                  $(form).find('.alert-warning').append($('<a>').addClass('alert-link').attr('href','mailto:'+params['staffEmail']+'?subject='+params['subject']+'&body='+params['body'] +'%0D%0A%0D%0A'+ arr.join('%0D%0A')).text(params['staffEmail'])).slideDown();
+
+                });
+
+                return false;
+              });
+              $('#contactModal').on('hide.bs.modal', function() {
+                $(this).find('.alert').remove();
+                $(this).find('form').get(0).reset();
+              });
+
+             
+
+              
+            
+        </script>
+<!--Google Analytics
+        <script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try {var pageTracker = _gat._getTracker("UA-9825778-1");pageTracker._trackPageview();} catch(err) {}</script>
+        
+        -->
+    </body>
+</html>
