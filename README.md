@@ -16,7 +16,7 @@ Full documentation is [available here](http://dvrpcfreight.github.io/open-freigh
 
 If you are interested in contributing to the Open Freight App project please contact [Michael Ruane](mailto:mruane@dvrpc.org). To report any issues or bugs please send us an email or add an [issue here](https://github.com/DVRPCfreight/open-freight-app/issues).
 
-
+If you have questions about SANDAG's version of the Open Freight App project please contact [Pat Landrum](mailto:pat.landrum@sandag.org).
 
 
 
