@@ -24,8 +24,8 @@ $(document).ready(function () {
     })();
 
     $(function() {
-        d3.select('#maritime-indicators').html('');
-        tab_status['maritime-indicators'] = false;
+        d3.select('#land-indicators').html('');
+        tab_status['land-indicators'] = false;
 
 
     //declare all values for DOM element sizing and rendering of SVGs
@@ -213,6 +213,7 @@ $(document).ready(function () {
                     // size port circles based on ship calls
 
                     function sizePorts(count_year) {
+                        count_year = parseInt(count_year)
                         if(count_year === 2003){
                         // if(count_year = parseInt(count_year)){
                             $('#mi-vessel-icon').hide();
