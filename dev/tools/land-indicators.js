@@ -212,6 +212,7 @@ $(document).ready(function () {
                     // size port circles based on ship calls
 
                     function sizePorts(count_year) {
+                        count_year = parseInt(count_year)
                         if(count_year === 2006){
                         // if(count_year = parseInt(count_year)){
                             $('#mi-vessel-icon').hide();
