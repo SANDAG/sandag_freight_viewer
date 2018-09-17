@@ -94,7 +94,7 @@ function TruckParkingFacilities(e) {
                                 +"<tr class='active'><td><strong>Amenities: </strong></td><td>" + props.Amenities + "</td></tr>"
                             +"</table>"
                     +"</div></div>"
-                    +"<div class='labelfield source'>Data Source: + props.Source</div></div>",
+                    +"<div class='labelfield source'>Data Source: " + props.Source + "</div></div>",
         featureName = '<p>Type: Ports of Entry</p>',
         featureClass = 'hwycl',
         featureIcon = 'trkparkicon icon';
@@ -105,11 +105,11 @@ function TruckParkingFacilities(e) {
 //  Rail Yards, layer 5
 function RailYards(e) {
     initializeHL(e);
-    header = '<p>' + props.NAME + '</p>',
+    header = '<p>' + props.RailYard_N + '</p>',
     content = "<div id='baseInfo'>\
-    <div class='datafield'>" + props.OPERATOR1  + "</div><div class='labelfield'>Owner</div>\
-    <div class='datafield'>" + props.OWNER + "</div><div class='labelfield'>Operator</div>\
-    <div class='datafield'>" + props.TRACK_TYPE + "</div><div class='labelfield'>Line Serving</div>\
+    <div class='datafield'>" + props.RailYard_N  + "</div><div class='labelfield'>Name</div>\
+    <div class='datafield'>" + props.Owner_1 + "</div><div class='labelfield'>Owner</div>\
+    <div class='datafield'>" + props.Operator + "</div><div class='labelfield'>Operator</div>\
     </div><!--close baseInfo-->\
     <div class='infoDivider'></div>\
     <div id='indicatorInfo'>\
@@ -118,8 +118,8 @@ function RailYards(e) {
     <div id='indicator' class='tab-content'><!--tab panes-->\
     <div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
         <table class='table table-hover'>\
-            <tr class='active'><td><strong>Acres: </strong></td><td>" + props.TRACK_TYPE + "</td></tr>\
-            <tr class='active'><td><strong>Annual Car Count: </strong></td><td>" + props.NAME + "</td></tr>\
+            <tr class='active'><td><strong>Acres: </strong></td><td>" + props.Area + "</td></tr>\
+            <tr class='active'><td><strong>Track Type: </strong></td><td>" + props.Track_Type + "</td></tr>\
         </table>\
     </div></div>\
     <div class='labelfield source'>Data Source: " + props.Source + "</div></div>",
@@ -134,23 +134,23 @@ function RailLines(e) {
     initializeHL(e);
     header = '<p>' + props.d_Owner + '</p>',
     content = "<div id='baseInfo'>\
-    <div class='datafield'>" + props.d_Operat_1 + "</div><div class='labelfield'>Owner</div>\
+    <div class='datafield'>" + props.d_Owner + "</div><div class='labelfield'>Owner</div>\
     <div class='datafield'>" + props.d_Operat_2 + "</div><div class='labelfield'>Operator</div>\
-    <div class='datafield'>" + props.d_Operat_3  + "</div><div class='labelfield'>Line Serving</div>\
+    <div class='datafield'>" + props.d_TrackTyp  + "</div><div class='labelfield'>Track Type</div>\
     </div><!--close baseInfo-->\
-    <div class='infoDivider'></div>\
+    <!--<div class='infoDivider'></div>\
     <div id='indicatorInfo'>\
     <ul class='nav nav-tabs'><!--tabs for indicators-->\
-    <li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
+    <!--<li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
     <div id='indicator' class='tab-content'><!--tab panes-->\
-    <div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
+    <!--<div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
         <table class='table table-hover'>\
             <tr class='active'><td><strong>Number of Tracks: </strong></td><td>" + numeral(props.Capacity).format('0,0') + "</td></tr>\
             <tr class='active'><td><strong> <a title='Truck space utilization determined by single overnight count' data-toggle='infotooltip'>Double Stack Clearance</a>: </strong></td><td> " + props.Activity_1 + " </td></tr>\
             <tr class='active'><td><strong> <a title='Rail line that support 862k capacity rail freight' data-toggle='infotooltip'>862k Capacity</a>: </strong></td><td> " + numeral(props.Activity_2).format('0,0.0') + " </td></tr>\
             <tr class='active'><td><strong> <a title='Truck space utilization determined by single overnight count' data-toggle='infotooltip'>Trains Daily</a>: </strong></td><td> " + numeral(props.Activity_3).format('0,0') + " </td></tr>\
         </table>\
-    </div></div>\
+    </div></div>-->\
     <div class='labelfield source'>Data Source: " + props.Source + "</div></div>",
         featureName = '<p>Type: Rail Lines</p>',
         featureClass = 'railcl',
@@ -218,20 +218,20 @@ function PortsOfEntry(e) {
     header = '<p>' + props.Name + '</p>',
     content = "<div id='baseInfo'>\
     <div class='datafield'>" + props.Name + "</div><div class='labelfield'>Port Name</div>\
-    <div class='datafield'>" + props.Status + "</div><div class='labelfield'>Operator</div>\
-    <div class='datafield'><a href='url'>" + props.url + "</a></div><div class='labelfield'>URL</div>\
+    <div class='datafield'>" + props.Status + "</div><div class='labelfield'>Status</div>\
+    <!--<div class='datafield'><a href='url'>" + props.url + "</a></div><div class='labelfield'>URL</div>-->\
     </div><!--close baseInfo-->\
-    <div class='infoDivider'></div>\
+    <!--<div class='infoDivider'></div>\
     <div id='indicatorInfo'>\
     <ul class='nav nav-tabs'><!--tabs for indicators-->\
-    <li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
+    <!--<li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
     <div id='indicator' class='tab-content'><!--tab panes-->\
-    <div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
+    <!--<div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
         <table class='table table-hover'>\
             <tr class='active'><td><strong>Pedestrian Crossings: </strong></td><td>" + props.Capacity + "</td></tr>\
             <tr class='active'><td><strong> <a title='Truck space utilization determined by single overnight count' data-toggle='infotooltip'>Truck Crossings</a>: </strong></td><td> " + props.Activity_1 + " </td></tr>\
         </table>\
-    </div></div>\
+    </div></div>-->\
     <div class='labelfield source'>Data Source: " + props.Source + "</div></div>",
         featureName = '<p>Type: Ports of Entry</p>',
         featureClass = 'portcl',
@@ -300,21 +300,21 @@ function CommAirports(e) {
     header = '<p>' + props.Name + '</p>',
     content = "<div id='baseInfo'>\
     <div class='datafield'>" + props.Name + "</div><div class='labelfield'>Type</div>\
-    <div class='datafield'>" + props.Name + "</div><div class='labelfield'>Owner</div>\
+    <div class='datafield'>" + props.Owner + "</div><div class='labelfield'>Owner</div>\
     </div><!--close baseInfo-->\
-    <div class='infoDivider'></div>\
+    <!--<div class='infoDivider'></div>\
     <div id='indicatorInfo'>\
     <ul class='nav nav-tabs'><!--tabs for indicators-->\
-    <li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
+    <!--<li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
     <div id='indicator' class='tab-content'><!--tab panes-->\
-    <div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
+    <!--<div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
         <table class='table table-hover'>\
             <tr class='active'><td><strong>Runway(s): </strong></td><td>" + props.Capacity + "</td></tr>\
             <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Runway Length(s)</a>: </strong></td><td> " + props.Activity_1 + " </td></tr>\
             <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Total Acreage</a>: </strong></td><td>" + props.Activity_1 + " </td></tr>\
             <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Annual Operations</a>: </strong></td><td> " + props.Activity_1 + " </td></tr>\
         </table>\
-    </div></div>\
+    </div></div>-->\
     <div class='labelfield source'>Data Source: " + props.Source + "</div></div>",
         featureName = '<p>Type: Commercial Airports</p>',
         featureClass = 'commaircl',
@@ -354,24 +354,22 @@ function CommAirports(e) {
 //  layer14
 function EmploymentCenters(e) {
     initializeHL(e);
-    header = '<p>' + props.NAME + '</p>',
+    header = '<p>' + props.name + '</p>',
     content = "<div id='baseInfo'>\
-    <div class='datafield'>" + props.Name + "</div><div class='labelfield'>Type</div>\
+    <div class='datafield'>" + props.name + "</div><div class='labelfield'>Employment Centers</div>\
     </div><!--close baseInfo-->\
     <div class='infoDivider'></div>\
     <div id='indicatorInfo'>\
     <ul class='nav nav-tabs'><!--tabs for indicators-->\
-    <li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
+    <li class='active'><a href='#Cap' data-toggle='tab'>Type</a></li></ul>\
     <div id='indicator' class='tab-content'><!--tab panes-->\
     <div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
         <table class='table table-hover'>\
-            <tr class='active'><td><strong>Employment: </strong></td><td>" + props.Link + "</td></tr>\
-            <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Establishments</a>: </strong></td><td> " + props.NAME + " </td></tr>\
-            <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Acres</a>: </strong></td><td> " + props.NAME + " </td></tr>\
+            <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Type</a>: </strong></td><td> " + props.Type + " </td></tr>\
         </table>\
     </div></div>\
-    <div class='labelfield source'>Data Source: " + props.Source + "</div></div>",
-        featureName = '<p>Type: Employment Centers</p>',
+    <div class='labelfield source'>Data Source: " + props.source + "</div></div>",
+        featureName = '<p>Type: Primary Employment Centers</p>',
         featureClass = 'fcmegacl',
         featureIcon = 'fcmegaicon icon';
     contentPush(header,content,featureName,featureClass,featureIcon);
@@ -379,11 +377,11 @@ function EmploymentCenters(e) {
 
 
 //  layer15
-function OtherEmployers(e) {
+function MoreEmployers(e) {
     initializeHL(e);
-    header = '<p>' + props.Name + '</p>',
+    header = '<p>' + props.name + '</p>',
     content = "<div id='baseInfo'>\
-    <div class='datafield'>" + props.Proj_ID + "</div><div class='labelfield'>Type</div>\
+    <div class='datafield'>" + props.name + "</div><div class='labelfield'>Employment Centers</div>\
     </div><!--close baseInfo-->\
     <div class='infoDivider'></div>\
     <div id='indicatorInfo'>\
@@ -392,20 +390,42 @@ function OtherEmployers(e) {
     <div id='indicator' class='tab-content'><!--tab panes-->\
     <div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
         <table class='table table-hover'>\
-            <tr class='active'><td><strong>Employment: </strong></td><td>" + props.Link + "</td></tr>\
-            <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Establishments</a>: </strong></td><td> " + props.LINK + " </td></tr>\
-            <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Acres</a>: </strong></td><td> " + props.LINK + " </td></tr>\
+            <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Zone</a>: </strong></td><td> " + props.zone + " </td></tr>\
         </table>\
     </div></div>\
-    <div class='labelfield source'>Data Source: " + props.Source + "</div></div>",
-        featureName = '<p>Type: Other Major Employers</p>',
+    <div class='labelfield source'>Data Source: " + props.source + "</div></div>",
+        featureName = '<p>Type: Level 2 Employment Centers</p>',
         featureClass = 'fcmajorcl',
         featureIcon = 'fcmajoricon icon';
     contentPush(header,content,featureName,featureClass,featureIcon);
 };
 
-// Energy & Utility layers
 //  layer16
+function OtherEmployers(e) {
+    initializeHL(e);
+    header = '<p>' + props.name + '</p>',
+        content = "<div id='baseInfo'>\
+    <div class='datafield'>" + props.name + "</div><div class='labelfield'>Employment Centers</div>\
+    </div><!--close baseInfo-->\
+    <div class='infoDivider'></div>\
+    <div id='indicatorInfo'>\
+    <ul class='nav nav-tabs'><!--tabs for indicators-->\
+    <li class='active'><a href='#Cap' data-toggle='tab'>Capacity & Activity</a></li></ul>\
+    <div id='indicator' class='tab-content'><!--tab panes-->\
+    <div class='tab-pane active' id='Cap' style='padding-bottom: 12px;'>\
+        <table class='table table-hover'>\
+            <tr class='active'><td><strong> <a title='Truck space utilization' data-toggle='infotooltip'>Zone</a>: </strong></td><td> " + props.zone + " </td></tr>\
+        </table>\
+    </div></div>\
+    <div class='labelfield source'>Data Source: " + props.source + "</div></div>",
+        featureName = '<p>Type: Level 3 Employment Centers</p>',
+        featureClass = 'fcothercl',
+        featureIcon = 'fcothericon icon';
+    contentPush(header,content,featureName,featureClass,featureIcon);
+};
+
+// Energy & Utility layers
+//  layer17
 function Pipelines(e) {
     initializeHL(e);
     header = '<p>' + props.OPERATOR + '</p>',

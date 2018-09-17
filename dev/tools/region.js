@@ -57,7 +57,7 @@ $(function() {
         var stat_data = ['IntRouteMi', 'NatHwyMile', 'NHS', 'interch', 'freightRai', 'yards', 'portTermin', 'ShipCalls', 'centers', 'centerEmp', 'truckStop'];
 
         var county_desc = {
-            'san diego' : 'Widely known for its idyllic open spaces, pristine streams and rivers, and attractive communities, Bucks County, Pennsylvania also boasts one of the Philadelphia region’s most comprehensive and sophisticated ranges of freight facilities and services. This collective freight network forms a true asset that produces well-paying jobs for county residents, critical tax ratables for boroughs and townships, and an immutable anchor for current and future land development.',
+            'san diego' : 'San Diego is a city on the Pacific coast of California known for its beaches, parks and warm climate. Immense Balboa Park is the site of the renowned San Diego Zoo, as well as numerous art galleries, artist studios, museums and gardens. A deep harbor is home to a large active naval fleet, with the USS Midway, an aircraft-carrier-turned-museum, open to the public.',
             'imperial' : 'Burlington County, New Jersey, is a powerhouse of freight activity with large doses of personal touches. The County is strategically located within the Northeastern United States megalopolis and that makes it an ideal logistics platform for Trenton, Philadelphia, North Jersey, and even New York City. At the same time, the County retains an unmistakable familial quality that springs from the steadfast commitment of key individuals and successive generations to promoting economic development and prosperity.',
             'baja' : 'Bountiful in freight facilities and services, Camden County, New Jersey offers a wealth of supply chain solutions. Using strategic public-private partnerships and investments, the County has successfully re-loaded its arsenal of multi-modal freight capabilities. An earnest desire to speak the language of the customer and a watchful eye on major trade developments such as the Panama Canal expansion further accentuate the County’s global outlook and integrative spirit.',
 
@@ -81,7 +81,7 @@ $(function() {
                 region_navigation(hash_load);
             }else{
                 $('#c-region').fadeIn();
-                $('#c-name').html('DVRPC Region');
+                $('#c-name').html('San Diego Region');
                 $('#c-tab').html('Overview');
                 $('#c-explore-emphasis').css('width',explorer+'px');
                 buildCountyMap();
@@ -273,7 +273,7 @@ $(function() {
                 buildCountyMap();
                 target = 'network';
                 county = 'none';
-                $('#c-name').html('DVRPC Region');
+                $('#c-name').html('San Diego Region');
                 $('#c-explorer-block').fadeOut('slow');
 
             }else if(target === 'domestic_trade'){
@@ -322,7 +322,7 @@ $(function() {
         $(document.body).on('click', '#c-map-legend',function(){
             var toggleStatus = $(this).attr('class');
             if(toggleStatus === 'closed'){
-                $(this).css('width', '240px').css('height', '145px').css('border-radius','4px 20px 4px 4px').toggleClass('closed open');
+                $(this).css('width', '240px').css('height', '345px').css('border-radius','4px 20px 4px 4px').toggleClass('closed open');
                 $('#c-legend-icon i').toggleClass('dynico dynico-layers glyphicon glyphicon-minus');
                 $('.c-legend-list').show();
             }else{

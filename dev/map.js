@@ -85,10 +85,10 @@ var layer1icon = L.OpenFreightMarkers.icon({
         icon: 'railyard', markerColor: 'gold', layer:'layer5', title: 'Rail Yards'}, IconPresets),
     layer6icon = L.OpenFreightMarkers.icon({
         icon: 'rail', markerColor: 'gold', layer:'layer6', title: 'Rail Lines'}, IconPresets),
-    layer7icon = L.OpenFreightMarkers.icon({
-        icon: 'intermodal', markerColor: 'gold', layer:'layer7', title: 'Intermodal Facilities'}, IconPresets),
-    layer8icon = L.OpenFreightMarkers.icon({
-        icon: 'railxing', markerColor: 'gold', layer:'layer8', title: 'Rail Grade Crossings'}, IconPresets),
+    // layer7icon = L.OpenFreightMarkers.icon({
+    //     icon: 'intermodal', markerColor: 'gold', layer:'layer7', title: 'Intermodal Facilities'}, IconPresets),
+    // layer8icon = L.OpenFreightMarkers.icon({
+    //     icon: 'railxing', markerColor: 'gold', layer:'layer8', title: 'Rail Grade Crossings'}, IconPresets),
     layer9icon = L.OpenFreightMarkers.icon({
         icon: 'poe', markerColor: 'blue', layer:'layer9', title: 'Ports of Entry'}, IconPresets),
     layer10icon = L.OpenFreightMarkers.icon({
@@ -96,16 +96,18 @@ var layer1icon = L.OpenFreightMarkers.icon({
     // layer11icon = L.OpenFreightMarkers.icon({
     //     icon: 'anchor', markerColor: 'blue', layer:'layer11', title: 'Anchorages'}, IconPresets),
     layer12icon = L.OpenFreightMarkers.icon({
-        icon: 'airport', markerColor: 'green', layer:'layer12', title: 'Commercial Airports'}, IconPresets),
+        icon: 'airport', markerColor: 'yellow', layer:'layer12', title: 'Commercial Airports'}, IconPresets),
     // layer13icon = L.OpenFreightMarkers.icon({
     //     icon: 'airport', markerColor: 'ltgreen', layer:'layer13', title: 'Municipal Airports'}, IconPresets),
     layer14icon = L.OpenFreightMarkers.icon({
-        icon: 'center', markerColor: 'red', layer:'layer14', title: 'Employment Centers'}, IconPresets),
+        icon: 'center', onLoad: false, markerColor: 'forest', layer:'layer14', title: 'Level 1 Employment Centers'}, IconPresets),
     layer15icon = L.OpenFreightMarkers.icon({
-        icon: 'center', markerColor: 'red', layer:'layer15', title: 'Other Major Employers'}, IconPresets),
+        icon: 'center', onLoad: false, markerColor: 'forest', layer:'layer15', title: 'Level 2 Employment Centers'}, IconPresets),
     layer16icon = L.OpenFreightMarkers.icon({
-        icon: 'pipeline', markerColor: 'yellow', layer:'layer16', title: 'Energy & Utilities'}, IconPresets)
-    // layer17icon = L.OpenFreightMarkers.icon({
+        icon: 'center', onLoad: false, markerColor: 'forest', layer:'layer16', title: 'Level 3 Employment Centers'}, IconPresets),
+    layer17icon = L.OpenFreightMarkers.icon({
+        icon: 'pipeline', markerColor: 'yellow', layer:'layer17', title: 'Energy & Utilities'}, IconPresets)
+    // layer18icon = L.OpenFreightMarkers.icon({
     //     icon: 'community', markerColor: 'teal', layer:'layer17', title: 'Port Access Improvement'}, IconPresets);
 
 //define search groups for each layer that will be searchable
@@ -308,52 +310,52 @@ var layer6 = L.geoJson(null, {
             source: "Layer 6",								//layer source
             id: L.stamp(layer),								//leaflet id
             lat: layer.feature.geometry.coordinates[1],		//geometric bounds declaration for points (requires lat and lng)
-            lng: layer.feature.geometry.coordinates[0]						
-        });
-    }
-});  
-
-
-//define Layer 7 (point only)
-var layer7 = L.geoJson(null, {
-    pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {icon: layer7icon});	//declare icon to be used for point
-        },
-    onEachFeature: function (feature, layer){			//defines actions to be applied of each feature of layer
-        layer.on({											//Event handler on each feature
-           click: IntermodalFacilities,								//function on click --> function to be created in actions.js
-            dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
-        });
-        layer7Search.push({								//push variables from json features to search arrays
-            name: layer.feature.properties.Name,			//search name/field
-            source: "Layer 7",								//layer source
-            id: L.stamp(layer),								//leaflet id
-            lat: layer.feature.geometry.coordinates[1],		//geometric bounds declaration for points (requires lat and lng)
-            lng: layer.feature.geometry.coordinates[0]						
-        });
-    }
-});  
-
-
-//define Layer 8 (point only)
-var layer8 = L.geoJson(null, {
-    pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {icon: layer8icon});	//declare icon to be used for point
-        },
-    onEachFeature: function (feature, layer){			//defines actions to be applied of each feature of layer
-        layer.on({											//Event handler on each feature
-           click: RailGradeCrossings,								//function on click --> function to be created in actions.js
-            dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
-        });
-        layer8Search.push({								//push variables from json features to search arrays
-            name: layer.feature.properties.Name,			//search name/field
-            source: "Layer 8",								//layer source
-            id: L.stamp(layer),								//leaflet id
-            lat: layer.feature.geometry.coordinates[1],		//geometric bounds declaration for points (requires lat and lng)
-            lng: layer.feature.geometry.coordinates[0]						
+            lng: layer.feature.geometry.coordinates[0]
         });
     }
 });
+
+
+//define Layer 7 (point only)
+// var layer7 = L.geoJson(null, {
+//     pointToLayer: function (feature, latlng) {
+//         return L.marker(latlng, {icon: layer7icon});	//declare icon to be used for point
+//         },
+//     onEachFeature: function (feature, layer){			//defines actions to be applied of each feature of layer
+//         layer.on({											//Event handler on each feature
+//            click: IntermodalFacilities,								//function on click --> function to be created in actions.js
+//             dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
+//         });
+//         layer7Search.push({								//push variables from json features to search arrays
+//             name: layer.feature.properties.Name,			//search name/field
+//             source: "Layer 7",								//layer source
+//             id: L.stamp(layer),								//leaflet id
+//             lat: layer.feature.geometry.coordinates[1],		//geometric bounds declaration for points (requires lat and lng)
+//             lng: layer.feature.geometry.coordinates[0]
+//         });
+//     }
+// });
+
+
+//define Layer 8 (point only)
+// var layer8 = L.geoJson(null, {
+//     pointToLayer: function (feature, latlng) {
+//         return L.marker(latlng, {icon: layer8icon});	//declare icon to be used for point
+//         },
+//     onEachFeature: function (feature, layer){			//defines actions to be applied of each feature of layer
+//         layer.on({											//Event handler on each feature
+//            click: RailGradeCrossings,								//function on click --> function to be created in actions.js
+//             dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
+//         });
+//         layer8Search.push({								//push variables from json features to search arrays
+//             name: layer.feature.properties.Name,			//search name/field
+//             source: "Layer 8",								//layer source
+//             id: L.stamp(layer),								//leaflet id
+//             lat: layer.feature.geometry.coordinates[1],		//geometric bounds declaration for points (requires lat and lng)
+//             lng: layer.feature.geometry.coordinates[0]
+//         });
+//     }
+// });
 
 
 //define Layer 9 (point and poly combo)
@@ -467,7 +469,7 @@ var layer12pt = L.geoJson(null, {
 var layer12poly = L.geoJson(null, {
     style: {
         weight:4,
-        color:"#216937",
+        color:"#EFD315",
         opacity:.75
     },
     onEachFeature: function (feature, layer){
@@ -525,10 +527,15 @@ var layer12 = new L.FeatureGroup([layer12pt, layer12poly]);
 
 
 
-//define Layer 14 (point only)
+//define Layer 14 (point and poly)
 var layer14pt = L.geoJson(null, {
     pointToLayer:  function (feature, latlng) {
         return L.marker(latlng, {icon: layer14icon});	//declare icon to be used for point
+    },
+    style: {
+        weight:4,
+        color:"#a50a21",
+        opacity:.75
     },
     onEachFeature: function (feature, layer) {			//defines actions to be applied of each feature of layer
         layer.on({											//Event handler on each feature
@@ -540,7 +547,7 @@ var layer14pt = L.geoJson(null, {
 var layer14poly = L.geoJson(null, {
     style: {
         weight:4,
-        color:"#C1332B",
+        color:"#a50a21",
         opacity:.75
     },
     onEachFeature: function (feature, layer){
@@ -549,7 +556,7 @@ var layer14poly = L.geoJson(null, {
             dblclick: zoomToFeature
         });
         layer14Search.push({
-            name: layer.feature.properties.Name,
+            name: layer.feature.properties.name,
             source: "Layer 14",
             id: L.stamp(layer),
             bounds: layer.getBounds()
@@ -560,14 +567,19 @@ var layer14poly = L.geoJson(null, {
 var layer14 = new L.FeatureGroup([layer14pt, layer14poly]);
 
 
-//define Layer 15 (point only)
+//define Layer 15 (point and poly)
 var layer15pt = L.geoJson(null, {
     pointToLayer:  function (feature, latlng) {
         return L.marker(latlng, {icon: layer15icon});	//declare icon to be used for point
     },
+    style: {
+        weight:4,
+        color:"#a50a21",
+        opacity:.50
+    },
     onEachFeature: function (feature, layer) {			//defines actions to be applied of each feature of layer
         layer.on({											//Event handler on each feature
-            click:    EmploymentCenters,								//function on click --> function to be created in actions.js
+            click:    MoreEmployers,								//function on click --> function to be created in actions.js
             dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
         });
     }
@@ -575,17 +587,17 @@ var layer15pt = L.geoJson(null, {
 var layer15poly = L.geoJson(null, {
     style: {
         weight:4,
-        color:"#C1332B",
-        opacity:.75
+        color:"#a50a21",
+        opacity:.35
     },
     onEachFeature: function (feature, layer){
         layer.on({
-            click: EmploymentCenters,
+            click: MoreEmployers,
             dblclick: zoomToFeature
         });
         layer15Search.push({
-            name: layer.feature.properties.Name,
-            source: "Layer 14",
+            name: layer.feature.properties.name,
+            source: "Layer 15",
             id: L.stamp(layer),
             bounds: layer.getBounds()
         });
@@ -594,6 +606,44 @@ var layer15poly = L.geoJson(null, {
 //create layer group for Layer 3 point and polygon features
 var layer15 = new L.FeatureGroup([layer15pt, layer15poly]);
 
+//define Layer 16 (point and poly)
+var layer16pt = L.geoJson(null, {
+    pointToLayer:  function (feature, latlng) {
+        return L.marker(latlng, {icon: layer16icon});	//declare icon to be used for point
+    },
+    style: {
+        weight:4,
+        color:"#a50a21",
+        opacity:.75
+    },
+    onEachFeature: function (feature, layer) {			//defines actions to be applied of each feature of layer
+        layer.on({											//Event handler on each feature
+            click:    OtherEmployers,								//function on click --> function to be created in actions.js
+            dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
+        });
+    }
+});
+var layer16poly = L.geoJson(null, {
+    style: {
+        weight:4,
+        color:"#a50a21",
+        opacity:.75
+    },
+    onEachFeature: function (feature, layer){
+        layer.on({
+            click: OtherEmployers,
+            dblclick: zoomToFeature
+        });
+        layer16Search.push({
+            name: layer.feature.properties.name,
+            source: "Layer 16",
+            id: L.stamp(layer),
+            bounds: layer.getBounds()
+        });
+    }
+});
+//create layer group for Layer 3 point and polygon features
+var layer16 = new L.FeatureGroup([layer16pt, layer16poly]);
 
 // //define Layer 16 (point only)
 // var layer16 = L.geoJson(null, {
@@ -615,10 +665,10 @@ var layer15 = new L.FeatureGroup([layer15pt, layer15poly]);
 //     }
 // });
 
-//define Pipelines / Layer 16 (lines only)
-var layer16 = new L.geoJson(null, {
+//define Pipelines / Layer 17 (lines only)
+var layer17 = new L.geoJson(null, {
     style: {
-        color: "#EFD52B",
+        color: "#EFD315",
         weight:  3,
         opacity: 1
     },
@@ -627,9 +677,9 @@ var layer16 = new L.geoJson(null, {
             click: Pipelines,
             dblclick: zoomToFeature
         });
-        layer1Search.push({
+        layer17Search.push({
             name: layer.feature.properties.Name,
-            source: "Layer 16",
+            source: "Layer 17",
             id: L.stamp(layer),
             bounds: layer.getBounds()
         });
@@ -644,7 +694,7 @@ var layer16 = new L.geoJson(null, {
 //         },
 //     onEachFeature: function (feature, layer){			//defines actions to be applied of each feature of layer
 //         layer.on({											//Event handler on each feature
-//            click: PortAccessImprovement,								//function on click --> function to be created in actions.js
+//            click: Pipelines,								//function on click --> function to be created in actions.js
 //             dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
 //         });
 //         layer17Search.push({								//push variables from json features to search arrays
@@ -1164,16 +1214,16 @@ var layer16 = new L.geoJson(null, {
             if (map._layers[datum.id]) {						
                 map._layers[datum.id].fire("click");
             }; 
-        // };
-		    	// if (datum.source === "Layer 17") {
-            // if (!map.hasLayer(layer17)) {
-            //     map.addLayer(layer17);
-            //     $("#layer17").prop("checked", true);
-            // };
-            // map.fitBounds(datum.bounds);
-            // if (map._layers[datum.id]) {
-            //     map._layers[datum.id].fire("click");
-            // };
+        };
+		    	if (datum.source === "Layer 17") {
+            if (!map.hasLayer(layer17)) {
+                map.addLayer(layer17);
+                $("#layer17").prop("checked", true);
+            };
+            map.fitBounds(datum.bounds);
+            if (map._layers[datum.id]) {
+                map._layers[datum.id].fire("click");
+            };
         };
     }).on("typeahead:opened", function () {
             $(".navbar-collapse.in").css("max-height", $(document).height()-$(".navbar-header").height());
@@ -1271,7 +1321,7 @@ $.getJSON("data/Rail_Yards_Points.json", function (data) {
     layer5pt.addData(data);
 });
 
-$.getJSON("data/Rail_Yards_Polys.json", function (data) {
+$.getJSON("data/rail_yards_poly_dom.json", function (data) {
     layer5poly.addData(data);
 });
 polyLayer.push('layer5poly');
@@ -1337,31 +1387,41 @@ polyLayer.push('layer12poly');
 // });
 // polyLayer.push('layer13poly');
 
-// Employment Centers
-$.getJSON("data/employment_points.json", function (data) {
+// Primary Employment Centers
+$.getJSON("data/primary_point.json", function (data) {
     layer14pt.addData(data);
 });
 
-$.getJSON("data/employment.json", function (data) {
+$.getJSON("data/primary_poly.json", function (data) {
     layer14poly.addData(data);
 });
 polyLayer.push('layer14poly');
 
-// Other Major Employers
-$.getJSON("data/employment_points.json", function (data) {
+// Secondary Employment Centers
+$.getJSON("data/secondary_point.json", function (data) {
     layer15pt.addData(data);
 });
 
-$.getJSON("data/employment.json", function (data) {
+$.getJSON("data/secondary_poly.json", function (data) {
     layer15poly.addData(data);
 });
 polyLayer.push('layer15poly');
 
+// Tertiary Employent Centers
+$.getJSON("data/tertiary_point.json", function (data) {
+    layer16pt.addData(data);
+});
+
+$.getJSON("data/tertiary_poly.json", function (data) {
+    layer16poly.addData(data);
+});
+polyLayer.push('layer16poly');
+
 // Energy and Utilities / Pipelines
 $.getJSON("data/pipelines_20180615.json", function (data) {
-	layer16.addData(data);
+	layer17.addData(data);
 });
-polyLayer.push('layer16'); //must have this even though not poly layer
+polyLayer.push('layer17'); //must have this even though not poly layer
 
 // // Port Access Improvements
 // $.getJSON("data/Ports of Entry.json", function (data) {

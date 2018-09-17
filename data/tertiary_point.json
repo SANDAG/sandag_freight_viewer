@@ -1,0 +1,24 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 1, "name": "San Ysidro", "Type": "Tertiary", "ORIG_FID": 16 }, "geometry": { "type": "Point", "coordinates": [ -117.03362113797309, 32.548072068656154 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 2, "name": "South Bay", "Type": "Tertiary", "ORIG_FID": 17 }, "geometry": { "type": "Point", "coordinates": [ -117.08825985557822, 32.639873321065565 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 5, "name": "Pacific Beach-Clairemont", "Type": "Tertiary", "ORIG_FID": 18 }, "geometry": { "type": "Point", "coordinates": [ -117.23493659097437, 32.808857554621873 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 6, "name": "El Cajon-Santee", "Type": "Tertiary", "ORIG_FID": 19 }, "geometry": { "type": "Point", "coordinates": [ -116.9669300678049, 32.813582242390396 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 7, "name": "Central", "Type": "Tertiary", "ORIG_FID": 20 }, "geometry": { "type": "Point", "coordinates": [ -117.13343607669293, 32.770738896838949 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 8, "name": "La Jolla", "Type": "Tertiary", "ORIG_FID": 21 }, "geometry": { "type": "Point", "coordinates": [ -117.2695758161083, 32.841067642361615 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 9, "name": "Poway", "Type": "Tertiary", "ORIG_FID": 22 }, "geometry": { "type": "Point", "coordinates": [ -117.03692874956013, 32.941502199647829 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 10, "name": "North City", "Type": "Tertiary", "ORIG_FID": 23 }, "geometry": { "type": "Point", "coordinates": [ -117.19611999523843, 32.901199443219866 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 11, "name": "Sabre Springs-Rancho Peñasquitos", "Type": "Tertiary", "ORIG_FID": 24 }, "geometry": { "type": "Point", "coordinates": [ -117.10140754990201, 32.951403705367454 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 12, "name": "Solana Beach", "Type": "Tertiary", "ORIG_FID": 25 }, "geometry": { "type": "Point", "coordinates": [ -117.26216787597285, 32.987113054413875 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 13, "name": "Rancho Bernardo-Carmel Mountain", "Type": "Tertiary", "ORIG_FID": 26 }, "geometry": { "type": "Point", "coordinates": [ -117.08463256636813, 33.005850302597757 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 14, "name": "Encinitas", "Type": "Tertiary", "ORIG_FID": 27 }, "geometry": { "type": "Point", "coordinates": [ -117.2755648715646, 33.046289369569863 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 15, "name": "Escondido-Harmony Grove", "Type": "Tertiary", "ORIG_FID": 28 }, "geometry": { "type": "Point", "coordinates": [ -117.09934445263302, 33.122662482029575 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 16, "name": "Palomar Airport Road", "Type": "Tertiary", "ORIG_FID": 29 }, "geometry": { "type": "Point", "coordinates": [ -117.24182864396587, 33.135649551320853 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 17, "name": "Vista", "Type": "Tertiary", "ORIG_FID": 30 }, "geometry": { "type": "Point", "coordinates": [ -117.24255377865634, 33.203040016781536 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 18, "name": "Oceanside", "Type": "Tertiary", "ORIG_FID": 31 }, "geometry": { "type": "Point", "coordinates": [ -117.36217547403109, 33.201315726861765 ] } },
+{ "type": "Feature", "properties": { "geography1": 144, "zone": 19, "name": "Carlsbad Village-Mira Costa", "Type": "Tertiary", "ORIG_FID": 32 }, "geometry": { "type": "Point", "coordinates": [ -117.31744988758768, 33.180831480378927 ] } }
+]
+}

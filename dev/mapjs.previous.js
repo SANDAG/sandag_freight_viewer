@@ -536,7 +536,7 @@ var layer17 = L.geoJson(null, {
     },
     onEachFeature: function (feature, layer){			//defines actions to be applied of each feature of layer
         layer.on({											//Event handler on each feature
-            click: highlightLayer2,								//function on click --> function to be created in actions.js
+            click: highlightLayer17,								//function on click --> function to be created in actions.js
             dblclick: zoomToPoint								//funciton on double click  --> zoom to point function in actions.js
         });
         layer17Search.push({								//push variables from json features to search arrays
@@ -548,6 +548,8 @@ var layer17 = L.geoJson(null, {
         });
     }
 });
+
+
 /*$.getJSON("data/Ports of Entry.json", function (data) {
  layer17.addData(data);
  });*/

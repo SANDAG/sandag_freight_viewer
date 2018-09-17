@@ -1042,31 +1042,41 @@ ul.footer-links li{
         border-color: #F9AB90!important;
         background-color: #F9AB90!important;
         }
-.fcmajorcl {
-        color:white!important;
-        border-color: #F26122!important;
-        background-color: #F26122!important;
-        }
 .fcmegacl {
-        color:white!important;
-        border-color: #C1332B!important;
-        background-color: #C1332B!important;
-        }
+    color:white!important;
+    border-color: #a50a21!important;
+    background-color: #a50a21!important;
+}
+.fcmajorcl {
+    color:white!important;
+    border-color: #a50a21!important;
+    background-color: #a50a21!important;
+}
+.fcothercl {
+    color:white!important;
+    border-color: #a50a21!important;
+    background-color: #a50a21!important;
+}
+/*.commaircl {*/
+        /*color:white!important;*/
+        /*border-color: #f0f100 !important;*/
+        /*background-color: #f0f100 !important;*/
+        /*}*/
 .commaircl {
-        color:white!important;
-        border-color: #216937!important;
-        background-color: #216937!important;
-        }
-.relaircl {
-        color:white!important;
-        border-color: #30B34C!important;
-        background-color: #30B34C!important;
-        }
-.heliportcl {
-        color:#60814C!important;
-        border-color: #B2D39E!important;
-        background-color: #B2D39E!important;
-        }
+    color:white!important;
+    border-color: #EFD315!important;
+    background-color: #EFD315!important;
+}
+/*.relaircl {*/
+        /*color:white!important;*/
+        /*border-color: #30B34C!important;*/
+        /*background-color: #30B34C!important;*/
+        /*}*/
+/*.heliportcl {*/
+        /*color:#60814C!important;*/
+        /*border-color: #B2D39E!important;*/
+        /*background-color: #B2D39E!important;*/
+        /*}*/
 .energycl {
         color:white!important;
         border-color: #EFD315!important;
@@ -1121,8 +1131,11 @@ ul.footer-links li{
 .fcintericon{
         background-image:url('images/flat/17.png');
         }
+.fcothericon{
+    background-image:url('images/flat/19.png');
+}
 .fcmajoricon{
-        background-image:url('images/flat/18.png');
+        background-image:url('images/flat/19.png');
         }
 .fcmegaicon{
         background-image:url('images/flat/19.png');
@@ -1130,12 +1143,12 @@ ul.footer-links li{
 .commicon{
         background-image:url('images/flat/airport1.png');
         }
-.relicon{
-        background-image:url('images/flat/airport2.png');
-        }
-.heliporticon{
-        background-image:url('images/flat/heliport.png');
-        }
+/*.relicon{*/
+        /*background-image:url('images/flat/airport2.png');*/
+        /*}*/
+/*.heliporticon{*/
+        /*background-image:url('images/flat/heliport.png');*/
+        /*}*/
 .pipelineicon{
         background-image:url('images/flat/pipeline.png');
         }
@@ -1179,7 +1192,8 @@ label.fgnic {background: url('images/flat/community.png') no-repeat;}
 .railinfo{color:#FBA919;}
 .portinfo{color:#0E76BC;}
 .fcinfo{color:#C2332C;}
-.airinfo{color:#216937;}
+.airinfo{color:#EFD315;}
+/*.airinfo{color:#216937;}*/
 .energyinfo{color:#EFD315;}
 .communityinfo{color:#54C4C8;}
 
@@ -2592,6 +2606,18 @@ inverse .navbar-nav .open > .dropdown-menu > .dropdown-submenu.open > a:before {
     width:24px;
     margin-right:8px;
 }
+.mi-trade-swatch{
+    float:left;
+    height:24px;
+    width:24px;
+    margin-right:8px;
+}
+.mi-trade-swatch{
+    float:left;
+    height:24px;
+    width:24px;
+    margin-right:8px;
+}
 .mi-trade-line{
     float:left;
     width:24px;
@@ -2599,6 +2625,40 @@ inverse .navbar-nav .open > .dropdown-menu > .dropdown-submenu.open > a:before {
     border-bottom:4px solid #EAA51B;
     margin-right:8px;
 }
+
+.mi-highway-line {
+    float: left;
+    width: 24px;
+    height: 14px;
+    border-bottom: 4px solid #824897;
+    margin-right: 8px;
+}
+
+.mi-ports-line {
+    float: left;
+    width: 24px;
+    height: 14px;
+    border-bottom: 4px solid #1A6FB3;
+    margin-right: 8px;
+}
+
+.mi-rail-line {
+    float: left;
+    width: 24px;
+    height: 14px;
+    border-bottom: 4px solid #F6A618;
+    margin-right: 8px;
+}
+
+.mi-utilities-line {
+    float: left;
+    width: 24px;
+    height: 14px;
+    border-bottom: 4px solid #EFD52B;
+    margin-right: 8px;
+}
+
+
 #mi-trade-legend-title{
     font-weight: 600;
     margin-bottom:10px;
@@ -2623,7 +2683,10 @@ inverse .navbar-nav .open > .dropdown-menu > .dropdown-submenu.open > a:before {
 .dkblue-bg{background-color: #312B6A;}
 .blue-bg{background-color: #396AB2;}
 .ltblue-bg{background-color: #7CA0D5;}
-.orange-bg{background-color: #EAA51B;}
+.airport-bg{background-color: #31AD48;}
+.rail-bg{background-color: #F6A618;}
+.ports-bg{background-color: #1A6FB3;}
+.highways-bg{background-color: #824897;}
 .overlay {
     fill: none;
     pointer-events: all;
